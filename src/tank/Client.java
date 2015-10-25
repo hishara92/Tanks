@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TankClient extends Thread{
+public class Client extends Thread{
     private Socket socket;
     private DataOutputStream dos;
     private String ip="127.0.0.1";
@@ -35,7 +35,7 @@ private boolean connect() {
             dos.flush();
             socket.close();
         } catch (IOException ex) {
-            Logger.getLogger(TankClient.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         

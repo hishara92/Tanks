@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 /**
  *
- * @author Supun
+ * @author Hishara
  */
 public class Mapviewer {
    static int mapMax=10;
@@ -34,13 +34,13 @@ public class Mapviewer {
         ArrayList<String> stone_pos = new ArrayList<String>();
         ArrayList<String> water_pos = new ArrayList<String>();
         //String dtail="I:P0:5,7;1,3;6,8;8,7;0,4;2,6:4,8;3,2;7,1;9,3;7,4;4,2;8,1;3,6;5,8:6,2;3,1;1,7;1,2;4,7;9,2;5,4;7,2;8,6;2,4#";
-String new_add=address.substring(0, address.length()-1);// to remove last # mark
+        String new_add=address.substring(0, address.length()-1);// to remove last # mark
         StringTokenizer str = new StringTokenizer(new_add, ":");
-        I = str.nextToken();//check first value I,G, S etc
+        I = str.nextToken();//check the first digit
         playerNum = str.nextToken();//get player names
-        brick = str.nextToken();//get bricks pattern
-        stone = str.nextToken();//get stones pattern
-        water = str.nextToken();//get water patterns
+        brick = str.nextToken();//get locations of bricks
+        stone = str.nextToken();//get locations of stones
+        water = str.nextToken();//get locations of water
         System.out.println("I = "+I+" brick = "+brick+" stone = "+stone+" water = "+water);
         
         StringTokenizer bri=new StringTokenizer(brick, ";");

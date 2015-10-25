@@ -1,26 +1,25 @@
 
 package tank;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import map.Mapviewer;
 
-public class TankServer extends Thread{
+public class Server extends Thread{
     ServerSocket serverSocket;
     Socket socket;
-    TankClient cli;
-    public TankServer(TankClient client) throws IOException{
+    Client c;
+    public Server(Client client) throws IOException{
         serverSocket=new ServerSocket(7000);
-        this.cli=client;
+        this.c=client;
     }
     @Override
     public void run(){
-        cli.run("JOIN#");//request sent to the server to join
+        c.run("JOIN#");//request sent to the server to join
         
         while(true){
             try {
@@ -37,18 +36,18 @@ public class TankServer extends Thread{
                 }
                  
             } catch (IOException ex) {
-                Logger.getLogger(TankServer.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
             }
            
         }
     }
     public static void main(String[] args) {
-        TankClient tankClient=new TankClient();
+        Client tankClient=new Client();
         try {
-            TankServer tankServer=new TankServer(tankClient);
+            Server tankServer=new Server(tankClient);
             tankServer.start();
         } catch (IOException ex) {
-            Logger.getLogger(TankServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
