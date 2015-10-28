@@ -43,7 +43,6 @@ public class Client extends Thread{
     }
     
     public void tankControl(String input){
-        connect();
         run(input);
     }
     

@@ -1,6 +1,7 @@
 
 package tank;
 
+import Gui.Map;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,6 +21,7 @@ public class Server extends Thread{
     @Override
     public void run(){
         c.run("JOIN#");//request sent to the server to join
+        new Map().setVisible(true);
         
         while(true){
             try {
