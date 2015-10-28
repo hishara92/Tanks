@@ -1,5 +1,7 @@
 package tank;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,7 +17,8 @@ public class Client extends Thread{
     private String ip="127.0.0.1";
     private ServerSocket serverSocket;
     private int port=6000;
-private boolean connect() {
+    
+    private boolean connect() {
 		try {
 			socket = new Socket(ip, port);
 			dos = new DataOutputStream(socket.getOutputStream());
@@ -36,9 +39,15 @@ private boolean connect() {
             socket.close();
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-}
+        }    
+    }
+    
+    public void tankControl(String input){
+        connect();
+        run(input);
+    }
+    
+
     
 }
+
