@@ -4,19 +4,25 @@
  */
 package Gui;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import map.KeyCtrl;
 import tank.Client;
 
 /**
  *
  * @author Hishara
  */
-public class Map extends javax.swing.JFrame {
+public class Map extends javax.swing.JFrame implements KeyListener{
 
     /**
      * Creates new form Map
      */
     public Map() {
         initComponents();
+        //jLabel1.setfo
+        //this.addKeyListener(new KeyCtrl());
+        jButton3.addKeyListener(new KeyCtrl());
         
     }
 
@@ -36,6 +42,7 @@ public class Map extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -59,6 +66,11 @@ public class Map extends javax.swing.JFrame {
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jButton3FocusGained(evt);
             }
         });
 
@@ -94,11 +106,15 @@ public class Map extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(23, 23, 23))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addComponent(jLabel1)
+                .addGap(11, 11, 11)
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -106,7 +122,7 @@ public class Map extends javax.swing.JFrame {
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addGap(25, 25, 25))
         );
@@ -151,6 +167,10 @@ public class Map extends javax.swing.JFrame {
         c.tankControl("SHOOT#");
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton3FocusGained
+        
+    }//GEN-LAST:event_jButton3FocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -191,7 +211,23 @@ public class Map extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println("Entered");
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("Entered");
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
