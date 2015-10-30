@@ -13,59 +13,43 @@ import tank.Client;
  * @author Hishara
  */
 public class KeyCtrl implements KeyListener {
-    
-    Client c=new Client();
+
+    Client c = new Client();
 
     @Override
     public void keyTyped(KeyEvent e) {
-       
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int keyCode=e.getKeyCode();
-        
+        int keyCode = e.getKeyCode();
+
 //        if(keyCode==KeyEvent.VK_UP){
 //            //System.out.println("LLLLLLLLLLLLLLLLLL");
 //            c.tankControl("UP#");
 //        }
-        
-        //else if(keyCode==KeyEvent.VK_DOWN)
-        switch(keyCode){
-            case KeyEvent.VK_ENTER:
-                System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-                break;
-           
-            
-            case KeyEvent.VK_UP:
-                //System.out.println("LLLLLLLLLLLLLLLLLL");
-                c.tankControl("UP#");
-                break;
-           
-            case KeyEvent.VK_DOWN:
-                c.tankControl("DOWN#");
-                break;
-                
-                
-            case KeyEvent.VK_LEFT:
-                c.tankControl("LEFT#");
-                break;
-            
-            case KeyEvent.VK_RIGHT:
-                c.tankControl("RIGHT#");
-                break;
-            
-                case KeyEvent.VK_SPACE:
-                c.tankControl("SHOOT#");
-                break;
+
+        if(keyCode==KeyEvent.VK_DOWN){
+            c.tankControl("DOWN#");
         }
+        else if(keyCode==KeyEvent.VK_UP){
+            c.tankControl("UP#");
+        }
+        else if(keyCode==KeyEvent.VK_LEFT){
+            c.tankControl("LEFT#");
+        }
+        else if(keyCode==KeyEvent.VK_RIGHT){
+            c.tankControl("RIGHT#");
+        }
+        else if(keyCode==KeyEvent.VK_CONTROL){
+            c.tankControl("SHOOT#");
+        }
+        
+        
+        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
     }
-
-    
-    
 }

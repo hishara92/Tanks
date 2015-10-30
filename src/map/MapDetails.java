@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
  *
  * @author Hishara
  */
-public class Mapviewer {
+public class MapDetails {
    static int mapMax=10;
    static String map[][]=new String[mapMax][mapMax];
    static int x=0,y=0;
@@ -21,6 +21,13 @@ public class Mapviewer {
    static ArrayList<String> P2;
    static ArrayList<String> P3;
    static ArrayList<String> P4;
+   static ArrayList<Player> playerList;
+   static Player player1;
+   static Player player2;
+   static Player player3;
+   static Player player4;
+   static Player player5;
+   
    
     
     public static void createMap(String address){
@@ -63,19 +70,19 @@ public class Mapviewer {
             String positions[]=brick_pos.get(i).split(",");
             x=Integer.parseInt(positions[0]);
             y=Integer.parseInt(positions[1]);
-            map[y][x]="1";//1 for brick
+            map[y][x]="B";//B for brick
         }
         for(int i=0;i<stone_pos.size();i++){
             String positions[]=stone_pos.get(i).split(",");
             x=Integer.parseInt(positions[0]);
             y=Integer.parseInt(positions[1]);
-            map[y][x]="2";//2 for stone
+            map[y][x]="S";//S for stone
         }
         for(int i=0;i<water_pos.size();i++){
             String positions[]=water_pos.get(i).split(",");
             x=Integer.parseInt(positions[0]);
             y=Integer.parseInt(positions[1]);
-            map[y][x]="3";//3 for water
+            map[y][x]="W";//W for water
         }
         printMap();
          
@@ -121,6 +128,9 @@ public class Mapviewer {
             
             map[y][x]=tokens.get(0);
             if("P0".equals(tokens.get(0))){
+//                if(player1==null){
+//                    player1=new Player(tokens.get)
+//                }
                 P0 =tokens;
             }
             else if("P1".equals(tokens.get(0))){
@@ -139,14 +149,25 @@ public class Mapviewer {
             System.out.println(P0);
             System.out.println(P1);
         }
-    public static void getLifePacks(String L){
-        
+    public static void updateLifePacks(String L){
         String details[]=L.split(":");
-        String[] positions =details[0].split(",");
+        String[] positions =details[1].split(",");
+//        System.out.println(positions[0]);
+//        System.out.println(positions[1]);
         x=Integer.parseInt(positions[0]);
         y=Integer.parseInt(positions[1]);
-        int time=Integer.parseInt(details[1].substring(0,(details[1]).length()-1));
-        System.out.println("LIFE PACK X  ="+  y+" Y =" +x+" time "+ time);
+       map[y][x]="L";      //To indicate life packs
+        
+    }
+    
+    public static void updateCoinPiles(String C){
+        String details[]=C.split(":");
+        String[] positions =details[1].split(",");
+        System.out.println(positions[0]);
+        System.out.println(positions[1]);
+        x=Integer.parseInt(positions[0]);
+        y=Integer.parseInt(positions[1]);
+        map[y][x]="C";      //To indicate Coin piles
         
     }
     

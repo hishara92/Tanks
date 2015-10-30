@@ -22,8 +22,11 @@ public class Map extends javax.swing.JFrame implements KeyListener{
         initComponents();
         //jLabel1.setfo
         //this.addKeyListener(new KeyCtrl());
-        jButton3.addKeyListener(new KeyCtrl());
-        
+        up.addKeyListener(new KeyCtrl());
+        right.addKeyListener(new KeyCtrl());
+        left.addKeyListener(new KeyCtrl());
+        down.addKeyListener(new KeyCtrl());
+        shoot.addKeyListener(new KeyCtrl());
     }
 
     /**
@@ -37,54 +40,54 @@ public class Map extends javax.swing.JFrame implements KeyListener{
 
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        right = new javax.swing.JButton();
+        left = new javax.swing.JButton();
+        up = new javax.swing.JButton();
+        down = new javax.swing.JButton();
+        shoot = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jToggleButton1.setText("jToggleButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("RIGHT");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        right.setText("RIGHT");
+        right.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                rightActionPerformed(evt);
             }
         });
 
-        jButton2.setText("LEFT");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        left.setText("LEFT");
+        left.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                leftActionPerformed(evt);
             }
         });
 
-        jButton3.setText("UP");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        up.setText("UP");
+        up.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                upActionPerformed(evt);
             }
         });
-        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+        up.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jButton3FocusGained(evt);
+                upFocusGained(evt);
             }
         });
 
-        jButton4.setText("DOWN");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        down.setText("DOWN");
+        down.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                downActionPerformed(evt);
             }
         });
 
-        jButton5.setText("SHOOT");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        shoot.setText("SHOOT");
+        shoot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                shootActionPerformed(evt);
             }
         });
 
@@ -95,16 +98,16 @@ public class Map extends javax.swing.JFrame implements KeyListener{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton5)
+                    .addComponent(shoot)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(up, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(down, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addComponent(jButton2)
+                .addComponent(left)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(right)
                 .addGap(23, 23, 23))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
@@ -115,15 +118,15 @@ public class Map extends javax.swing.JFrame implements KeyListener{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(11, 11, 11)
-                .addComponent(jButton3)
+                .addComponent(up)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(right)
+                    .addComponent(left))
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(down)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(shoot)
                 .addGap(25, 25, 25))
         );
 
@@ -147,29 +150,30 @@ public class Map extends javax.swing.JFrame implements KeyListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
     Client c=new Client();
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        c.tankControl("RIGHT#");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void rightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightActionPerformed
+        //c.tankControl("RIGHT#");
+        map.MapDetails.updateCoinPiles("C:8,9:58590#");
+    }//GEN-LAST:event_rightActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void upActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upActionPerformed
         c.tankControl("UP#");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_upActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
        c.tankControl("LEFT#");
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_leftActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void downActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downActionPerformed
         c.tankControl("DOWN#");
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_downActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void shootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shootActionPerformed
         c.tankControl("SHOOT#");
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_shootActionPerformed
 
-    private void jButton3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton3FocusGained
+    private void upFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_upFocusGained
         
-    }//GEN-LAST:event_jButton3FocusGained
+    }//GEN-LAST:event_upFocusGained
 
     /**
      * @param args the command line arguments
@@ -206,14 +210,14 @@ public class Map extends javax.swing.JFrame implements KeyListener{
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton down;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JButton left;
+    private javax.swing.JButton right;
+    private javax.swing.JButton shoot;
+    private javax.swing.JButton up;
     // End of variables declaration//GEN-END:variables
 
     @Override

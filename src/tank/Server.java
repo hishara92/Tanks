@@ -7,8 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-import map.Mapviewer;
+import map.MapDetails;
 
 public class Server extends Thread{
     ServerSocket serverSocket;
@@ -29,13 +30,29 @@ public class Server extends Thread{
                 BufferedReader msg=new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String s=msg.readLine();
                 System.out.println(s);
+                
                 if(s.charAt(0)=='I'&&s.charAt(1)==':'){//for priority I
-                    Mapviewer.createMap(s);
+                    MapDetails.createMap(s);
                 }
-                if(s.charAt(0)=='G'&&s.charAt(1)==':'){
+                else if(s.charAt(0)=='G'&&s.charAt(1)==':'){
                     
-                    Mapviewer.updateMap(s);
+                    MapDetails.updateMap(s);
                 }
+                
+                else if(s.charAt(0)=='L'&&s.charAt(1)==':'){
+                    MapDetails.updateLifePacks(s);
+                }
+                
+                 else if(s.charAt(0)=='C'&&s.charAt(1)==':'){
+                    MapDetails.updateCoinPiles(s);
+                }
+                 else if(s.charAt(0)=='S'){
+                     
+                 }
+                
+                 else{
+                     JOptionPane.showMessageDialog(null, s);
+                 }
                  
             } catch (IOException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,8 +5,6 @@ import java.awt.event.KeyListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +13,6 @@ public class Client extends Thread{
     private Socket socket;
     private DataOutputStream dos;
     private String ip="127.0.0.1";
-    private ServerSocket serverSocket;
     private int port=6000;
     
     private boolean connect() {
