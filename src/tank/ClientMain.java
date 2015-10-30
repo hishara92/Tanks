@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 
 import map.MapDetails;
 
-public class Server extends Thread{
+public class ClientMain extends Thread{
     ServerSocket serverSocket;
     Socket socket;
-    Client c;
-    public Server(Client client) throws IOException{
+    ClientServer c;
+    public ClientMain(ClientServer client) throws IOException{
         serverSocket=new ServerSocket(7000);
         this.c=client;
     }
@@ -55,18 +55,18 @@ public class Server extends Thread{
                  }
                  
             } catch (IOException ex) {
-                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClientMain.class.getName()).log(Level.SEVERE, null, ex);
             }
            
         }
     }
     public static void main(String[] args) {
-        Client tankClient=new Client();
+        ClientServer tankClient=new ClientServer();
         try {
-            Server tankServer=new Server(tankClient);
+            ClientMain tankServer=new ClientMain(tankClient);
             tankServer.start();
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

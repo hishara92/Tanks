@@ -7,7 +7,7 @@ package Gui;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import map.KeyCtrl;
-import tank.Client;
+import tank.ClientServer;
 
 /**
  *
@@ -149,7 +149,7 @@ public class Map extends javax.swing.JFrame implements KeyListener{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    Client c=new Client();
+    ClientServer c=new ClientServer();
     private void rightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightActionPerformed
         //c.tankControl("RIGHT#");
         map.MapDetails.updateCoinPiles("C:8,9:58590#");

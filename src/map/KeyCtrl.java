@@ -6,7 +6,7 @@ package map;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import tank.Client;
+import tank.ClientServer;
 
 /**
  *
@@ -14,7 +14,7 @@ import tank.Client;
  */
 public class KeyCtrl implements KeyListener {
 
-    Client c = new Client();
+    ClientServer c = new ClientServer();
 
     @Override
     public void keyTyped(KeyEvent e) {

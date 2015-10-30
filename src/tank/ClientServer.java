@@ -1,15 +1,12 @@
 package tank;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Client extends Thread{
+public class ClientServer extends Thread{
     private Socket socket;
     private DataOutputStream dos;
     private String ip="127.0.0.1";
@@ -35,7 +32,7 @@ public class Client extends Thread{
             dos.flush();
             socket.close();
         } catch (IOException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientServer.class.getName()).log(Level.SEVERE, null, ex);
         }    
     }
     
