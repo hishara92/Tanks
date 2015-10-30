@@ -24,11 +24,6 @@ public class KeyCtrl implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-//        if(keyCode==KeyEvent.VK_UP){
-//            //System.out.println("LLLLLLLLLLLLLLLLLL");
-//            c.tankControl("UP#");
-//        }
-
         if(keyCode==KeyEvent.VK_DOWN){
             c.tankControl("DOWN#");
         }

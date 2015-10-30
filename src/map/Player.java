@@ -15,7 +15,7 @@ public class Player {
     private int health;
     private int coins;
 
-    private Player(String playerName, int points, int whetherShoot, int health, int coins) {
+    public Player(String playerName, int points, int whetherShoot, int health, int coins) {
         this.playerName = playerName;
         this.points = points;
         this.whetherShoot = whetherShoot;
