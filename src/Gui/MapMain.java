@@ -48,7 +48,7 @@ public class MapMain extends javax.swing.JFrame {
                 //labelArray[btnNum].setPreferredSize(new Dimension(5,5));
                 mapPanel.setLayout(new  GridLayout(10, 10));
                 mapPanel.add(labelArray[y][x]);
-                 
+                labelArray[y][x].setHorizontalTextPosition(JLabel.CENTER);
                 labelArray[y][x].setText(Integer.toString(y)+Integer.toString(x));
                 //btnNum++;
             }
@@ -62,29 +62,27 @@ public class MapMain extends javax.swing.JFrame {
     }
     
     
-//    public static void updateImage(){
-//        for(int i=0;i<10;i++){
-//            for(int j=0;j<10;j++){
-//                
-//                switch (MapDetails.map[j][i]) {
-//                    case "S":
-//                        labelArray[j][i].setIcon(new ImageIcon(getClass().getResource("/img/stone.jpg")));
-//                        break;
-//                    case "B":
-//                        labelArray[j][i].setIcon(new ImageIcon(getClass().getResource("/img/brick.jpg")));
-//                        break;
-//                    case "W":
-//                        labelArray[j][i].setIcon(new ImageIcon(getClass().getResource("/img/water.jpg")));
-//                        break;
-//                    case "0":
-//                        labelArray[j][i].setIcon(new ImageIcon(getClass().getResource("/img/prt.jpg")));
-//                        break;
-//                }
-//                
-//            }
-//            
-//        }
-//    }
+    public static void updateImage(){
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                
+                switch (MapDetails.map[j][i]) {
+                    case "L":
+                       labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/health.jpg")));
+                        break;
+                    case "C":
+                        labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/coin.jpg")));
+                        break;
+                    
+                        
+                         
+                }
+               
+                
+            }
+            
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

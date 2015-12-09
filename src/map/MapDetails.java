@@ -5,6 +5,7 @@
  */
 package map;
 
+import Gui.MapMain;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -116,6 +117,7 @@ public class MapDetails {
             if (k.charAt(0) == 'P') {
                 playerUpdateStatus(k);
             } else {
+                MapMain.updateImage();
                 //updateBricks(k);
             }
 
@@ -208,7 +210,7 @@ public class MapDetails {
 
         helObj = new HealthPack(y, x, Integer.parseInt(details[2].substring(0, details[2].length() - 1)));
         System.out.println("ojmokmkomk");
-        healthPackList.add(helObj);
+        //healthPackList.add(helObj);
 
         map[y][x] = "L";      //To indicate life packs
 
