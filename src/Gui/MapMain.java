@@ -8,28 +8,43 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import map.MapDetails;
 
 /**
  *
  * @author Hishara
  */
 public class MapMain extends javax.swing.JFrame {
-
+    static JLabel[][] labelArray = new JLabel[10][10];
     /**
      * Creates new form MapMain
      */
     public MapMain() {
         initComponents();
         //int btnNum=0;
-        JLabel[][] labelArray = new JLabel[10][10];
+        //jPanel1.setBackground(Color.yellow);
+        //MapDetails.map={{"0","0","0","0","0","0","0","0","0","0"},  {"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"} };
         for(int x=0;x<10;x++){
             for(int y=0;y<10;y++){
                 labelArray[y][x]=new JLabel();
-                ImageIcon iconLogo = new ImageIcon("img/prt.png");
-                
-                labelArray[y][x].setIcon(iconLogo);
-                labelArray[y][x].setSize(5,5);
-                labelArray[y][x].setLocation(y, x);
+                switch (MapDetails.map[y][x]) {
+                    case "S":
+                        labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/stone.jpg")));
+                        break;
+                    case "B":
+                        labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/brick.jpg")));
+                        break;
+                    case "W":
+                        labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/water.jpg")));
+                        break;
+                    case "0":
+                        labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/prt.jpg")));
+                        break;
+                }
+                //labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/prt.jpg")));
+                //labelArray[y][x].setBackground(Color.GREEN);
+                //labelArray[y][x].setSize(5,5);
+                //labelArray[y][x].setLocation(y, x);
                 //labelArray[btnNum].setPreferredSize(new Dimension(5,5));
                 mapPanel.setLayout(new  GridLayout(10, 10));
                 mapPanel.add(labelArray[y][x]);
@@ -40,8 +55,36 @@ public class MapMain extends javax.swing.JFrame {
             
         }
         
+        labelArray[1][1].setIcon(new ImageIcon(getClass().getResource("/img/brick.jpg")));
+        labelArray[2][1].setIcon(new ImageIcon(getClass().getResource("/img/stone.jpg")));
+        labelArray[3][1].setIcon(new ImageIcon(getClass().getResource("/img/water.jpg")));
         
     }
+    
+    
+//    public static void updateImage(){
+//        for(int i=0;i<10;i++){
+//            for(int j=0;j<10;j++){
+//                
+//                switch (MapDetails.map[j][i]) {
+//                    case "S":
+//                        labelArray[j][i].setIcon(new ImageIcon(getClass().getResource("/img/stone.jpg")));
+//                        break;
+//                    case "B":
+//                        labelArray[j][i].setIcon(new ImageIcon(getClass().getResource("/img/brick.jpg")));
+//                        break;
+//                    case "W":
+//                        labelArray[j][i].setIcon(new ImageIcon(getClass().getResource("/img/water.jpg")));
+//                        break;
+//                    case "0":
+//                        labelArray[j][i].setIcon(new ImageIcon(getClass().getResource("/img/prt.jpg")));
+//                        break;
+//                }
+//                
+//            }
+//            
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.

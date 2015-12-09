@@ -2,6 +2,7 @@
 package tank;
 
 import Gui.Map;
+import Gui.MapMain;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,7 +24,7 @@ public class ClientMain extends Thread{
     public void run(){
         c.run("JOIN#");//request sent to the server to join
         new Map().setVisible(true);
-        
+        //new MapMain().setVisible(true);
         while(true){
             try {
                 socket=serverSocket.accept();
@@ -33,6 +34,7 @@ public class ClientMain extends Thread{
                 
                 if(s.charAt(0)=='I'&&s.charAt(1)==':'){//for priority I
                     MapDetails.createMap(s);
+                    new MapMain().setVisible(true);
                 }
                 else if(s.charAt(0)=='G'&&s.charAt(1)==':'){
                     

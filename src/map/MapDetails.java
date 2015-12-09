@@ -15,7 +15,7 @@ import java.util.StringTokenizer;
 public class MapDetails {
 
     static int mapMax = 10;
-    static String map[][] = new String[mapMax][mapMax];
+    public static String map[][] = new String[mapMax][mapMax];
     static int x = 0, y = 0;
     static ArrayList<String> P0;
     static ArrayList<String> P1;

@@ -27,6 +27,7 @@ public class Map extends javax.swing.JFrame implements KeyListener{
         left.addKeyListener(new KeyCtrl());
         down.addKeyListener(new KeyCtrl());
         shoot.addKeyListener(new KeyCtrl());
+        //ClientServer c=new ClientServer();
     }
 
     /**
