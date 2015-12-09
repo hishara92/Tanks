@@ -25,7 +25,7 @@ public class MapDetails {
     static ArrayList<Player> playerList;
     static ArrayList<Coin> coinList;
     static ArrayList<Brick> brickList;
-    static ArrayList<HealthPack> healthPackList;
+    public static ArrayList<HealthPack> healthPackList;
     static Player player1;
     static Player player2;
     static Player player3;
@@ -203,9 +203,12 @@ public class MapDetails {
         String[] positions = details[1].split(",");
         x = Integer.parseInt(positions[0]);
         y = Integer.parseInt(positions[1]);
+        
+        //System.out.println(details[2].substring(0, details[2].length() - 1));
 
-//        helObj = new HealthPack(y, x, Integer.parseInt(details[2].substring(0, details[2].length() - 1)));
-//        healthPackList.add(helObj);
+        helObj = new HealthPack(y, x, Integer.parseInt(details[2].substring(0, details[2].length() - 1)));
+        System.out.println("ojmokmkomk");
+        healthPackList.add(helObj);
 
         map[y][x] = "L";      //To indicate life packs
 
