@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import map.Brick;
+import map.KeyCtrl;
 import map.MapDetails;
 
 /**
@@ -15,73 +17,85 @@ import map.MapDetails;
  * @author Hishara
  */
 public class MapMain extends javax.swing.JFrame {
+
     static JLabel[][] labelArray = new JLabel[10][10];
+
     /**
      * Creates new form MapMain
      */
     public MapMain() {
         initComponents();
-        //int btnNum=0;
-        //jPanel1.setBackground(Color.yellow);
-        //MapDetails.map={{"0","0","0","0","0","0","0","0","0","0"},  {"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"},{"0","0","0","0","0","0","0","0","0","0"} };
-        for(int x=0;x<10;x++){
-            for(int y=0;y<10;y++){
-                labelArray[y][x]=new JLabel();
-                switch (MapDetails.map[y][x]) {
+        
+        mapPanel.requestFocus();
+        mapPanel.addKeyListener(new KeyCtrl());
+        
+        for (int x = 0; x < 10; x++) {
+            for (int y = 0; y < 10; y++) {
+                labelArray[y][x] = new JLabel();
+                mapPanel.setLayout(new GridLayout(10, 10));
+                mapPanel.add(labelArray[y][x]);
+                labelArray[y][x].setHorizontalTextPosition(JLabel.CENTER);
+                switch (MapDetails.map[x][y]) {
                     case "S":
                         labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/stone.jpg")));
+                        labelArray[y][x].setText("Stone");
                         break;
                     case "B":
                         labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/brick.jpg")));
+                        labelArray[y][x].setForeground(Color.WHITE);
+                        labelArray[y][x].setText("<html>Brick<br>100%</html>");
+                        labelArray[y][x].getParent().revalidate();
                         break;
                     case "W":
                         labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/water.jpg")));
+                        labelArray[y][x].setText("Water");
                         break;
                     case "0":
                         labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/prt.jpg")));
+                        labelArray[y][x].setText(Integer.toString(y) + Integer.toString(x));
                         break;
                 }
-                //labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/prt.jpg")));
-                //labelArray[y][x].setBackground(Color.GREEN);
-                //labelArray[y][x].setSize(5,5);
-                //labelArray[y][x].setLocation(y, x);
-                //labelArray[btnNum].setPreferredSize(new Dimension(5,5));
-                mapPanel.setLayout(new  GridLayout(10, 10));
-                mapPanel.add(labelArray[y][x]);
-                labelArray[y][x].setHorizontalTextPosition(JLabel.CENTER);
-                labelArray[y][x].setText(Integer.toString(y)+Integer.toString(x));
-                //btnNum++;
+
             }
-            
+
         }
-        
-        labelArray[1][1].setIcon(new ImageIcon(getClass().getResource("/img/brick.jpg")));
-        labelArray[2][1].setIcon(new ImageIcon(getClass().getResource("/img/stone.jpg")));
-        labelArray[3][1].setIcon(new ImageIcon(getClass().getResource("/img/water.jpg")));
-        
+        //labelArray[1][1].setText("<html>Brick<br>" + 24 + "</html>");
+
     }
-    
-    
-    public static void updateImage(){
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
-                
-                switch (MapDetails.map[j][i]) {
+
+    public static void updateImage() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+
+                switch (MapDetails.map[i][j]) {
                     case "L":
-                       labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/health.jpg")));
+                        labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/health.jpg")));
                         break;
                     case "C":
                         labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/coin.jpg")));
                         break;
-                    
-                        
-                         
+
                 }
-               
-                
+
+
             }
-            
+
         }
+    }
+
+    public static void brickDamageChange(Brick newBrick) {
+        labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/brick.jpg")));
+        String dLevel=Integer.toString(100-newBrick.getDamageLevel()*25);
+        labelArray[newBrick.getPosX()][newBrick.getPosY()].setForeground(Color.WHITE);
+        labelArray[newBrick.getPosX()][newBrick.getPosY()].setText("<html>Brick<br>" + dLevel + "%</html>");
+        labelArray[newBrick.getPosX()][newBrick.getPosY()].getParent().revalidate();
+
+
+    }
+    
+    public static void removeDeadBricks(Brick newBrick){
+        labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
+        labelArray[newBrick.getPosX()][newBrick.getPosY()].setText(Integer.toString(newBrick.getPosX())+Integer.toString(newBrick.getPosY()));
     }
 
     /**

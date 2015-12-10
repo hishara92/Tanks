@@ -18,23 +18,24 @@ public class MapDetails {
     static int mapMax = 10;
     public static String map[][] = new String[mapMax][mapMax];
     static int x = 0, y = 0;
-    static ArrayList<String> P0;
-    static ArrayList<String> P1;
-    static ArrayList<String> P2;
-    static ArrayList<String> P3;
-    static ArrayList<String> P4;
-    static ArrayList<Player> playerList;
-    static ArrayList<Coin> coinList;
-    static ArrayList<Brick> brickList;
-    public static ArrayList<HealthPack> healthPackList;
-    static Player player1;
-    static Player player2;
-    static Player player3;
-    static Player player4;
-    static Player player5;
-    static Coin coinObj;
-    static Brick brickObj;
-    static HealthPack helObj;
+    public static ArrayList<String> P0;
+    public static ArrayList<String> P1;
+    public static ArrayList<String> P2;
+    public static ArrayList<String> P3;
+    public static ArrayList<String> P4;
+    public static ArrayList<Player> playerList= new ArrayList<Player>();
+    public static Player[] PlayList=new Player[5];
+    public static ArrayList<Coin> coinList = new ArrayList<Coin>();
+    public static ArrayList<Brick> brickList = new ArrayList<Brick>();
+    public static ArrayList<HealthPack> healthPackList = new ArrayList<HealthPack>();
+    public static Player player1;
+    public static Player player2;
+    public static Player player3;
+    public static Player player4;
+    public static Player player5;
+    public static Coin coinObj;
+    public static Brick brickObj;
+    public static HealthPack helObj;
     static ArrayList<String> brick_pos = new ArrayList<String>();
 
     public static void createMap(String address) {
@@ -118,7 +119,7 @@ public class MapDetails {
                 playerUpdateStatus(k);
             } else {
                 MapMain.updateImage();
-                //updateBricks(k);
+                updateBricks(k);
             }
 
 
@@ -142,18 +143,28 @@ public class MapDetails {
 
         map[y][x] = tokens.get(0);
         if ("P0".equals(tokens.get(0))) {
-//            if (player1 == null) {
-//                player1 = new Player(tokens.get(0), Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)));
-//                playerList.add(player1);
-//            } else {
-//                player1.setPlayerName(tokens.get(0));
-//                player1.setPoints(Integer.parseInt(tokens.get(2)));
-//                player1.setWhetherShoot(Integer.parseInt(tokens.get(3)));
-//                player1.setHealth(Integer.parseInt(tokens.get(4)));
-//                player1.setCoins(Integer.parseInt(tokens.get(5)));
-//            }
+            if (player1 == null) {
+                player1 = new Player(tokens.get(0), Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)));
+                playerList.add(player1);
+            } else {
+                player1.setPlayerName(tokens.get(0));
+                player1.setPoints(Integer.parseInt(tokens.get(2)));
+                player1.setWhetherShoot(Integer.parseInt(tokens.get(3)));
+                player1.setHealth(Integer.parseInt(tokens.get(4)));
+                player1.setCoins(Integer.parseInt(tokens.get(5)));
+            }
             P0 = tokens;
         } else if ("P1".equals(tokens.get(0))) {
+            if (player2 == null) {
+                player2 = new Player(tokens.get(0), Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)));
+                playerList.add(player1);
+            } else {
+                player1.setPlayerName(tokens.get(0));
+                player1.setPoints(Integer.parseInt(tokens.get(2)));
+                player1.setWhetherShoot(Integer.parseInt(tokens.get(3)));
+                player1.setHealth(Integer.parseInt(tokens.get(4)));
+                player1.setCoins(Integer.parseInt(tokens.get(5)));
+         }
             P1 = tokens;
         } else if ("P2".equals(tokens.get(0))) {
             P2 = tokens;
@@ -170,6 +181,7 @@ public class MapDetails {
     }
 
     public static void updateBricks(String B) {
+        B=B.substring(0, B.length()-1);
         String details[] = B.split(";");
         for (int k = 0; k < brick_pos.size(); k++) {
             String split[]=brick_pos.get(k).split(",");
@@ -187,12 +199,22 @@ public class MapDetails {
                 for (j = 0; j < brickList.size(); j++) {
                     if (brickList.get(i).getPosX() == x && brickList.get(i).getPosY() == y) {
                         brickList.get(i).setDamageLevel(Integer.parseInt(info[2]));
+                        if(brickList.get(i).getDamageLevel()==4){
+                            MapMain.removeDeadBricks(brickList.get(i));
+                            map[brickList.get(i).getPosX()][brickList.get(i).getPosY()]="0";
+                            //System.out.println(brickList.get(i).getPosX());
+                            brickList.remove(brickList.get(i));
+                            
+                        }
+                        MapMain.brickDamageChange(brickList.get(i));
                         break;
                     }
 
                 }
 
             }
+            
+            
 
         }
 
@@ -207,10 +229,10 @@ public class MapDetails {
         y = Integer.parseInt(positions[1]);
         
         //System.out.println(details[2].substring(0, details[2].length() - 1));
-
+//L:1,5:11289#
         helObj = new HealthPack(y, x, Integer.parseInt(details[2].substring(0, details[2].length() - 1)));
-        System.out.println("ojmokmkomk");
-        //healthPackList.add(helObj);
+        //System.out.println(Integer.parseInt(details[2].substring(0, details[2].length() - 1)));
+        healthPackList.add(helObj);
 
         map[y][x] = "L";      //To indicate life packs
 
@@ -221,9 +243,9 @@ public class MapDetails {
         String[] positions = details[1].split(",");
         x = Integer.parseInt(positions[0]);
         y = Integer.parseInt(positions[1]);
-
-//        coinObj = new Coin(y, x, Integer.parseInt(details[2]), Integer.parseInt(details[3].substring(0, details[3].length() - 1)));
-//        coinList.add(coinObj);
+//C:7,0:26262:1058#
+        coinObj = new Coin(y, x, Integer.parseInt(details[2]), Integer.parseInt(details[3].substring(0, details[3].length() - 1)));
+        coinList.add(coinObj);
 
         map[y][x] = "C";      //To indicate Coin piles
 
