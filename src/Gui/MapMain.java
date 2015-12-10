@@ -11,6 +11,7 @@ import javax.swing.*;
 import map.Brick;
 import map.KeyCtrl;
 import map.MapDetails;
+import map.Player;
 
 /**
  *
@@ -25,10 +26,10 @@ public class MapMain extends javax.swing.JFrame {
      */
     public MapMain() {
         initComponents();
-        
+
         mapPanel.requestFocus();
         mapPanel.addKeyListener(new KeyCtrl());
-        
+
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
                 labelArray[y][x] = new JLabel();
@@ -74,7 +75,12 @@ public class MapMain extends javax.swing.JFrame {
                     case "C":
                         labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/coin.jpg")));
                         break;
-
+                    case "0":
+                        labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
+                        labelArray[j][i].setHorizontalTextPosition(JLabel.CENTER);
+                        labelArray[j][i].setText(Integer.toString(j) + Integer.toString(i));
+                        labelArray[j][i].getParent().revalidate();
+                        break;
                 }
 
 
@@ -85,17 +91,38 @@ public class MapMain extends javax.swing.JFrame {
 
     public static void brickDamageChange(Brick newBrick) {
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/brick.jpg")));
-        String dLevel=Integer.toString(100-newBrick.getDamageLevel()*25);
+        String dLevel = Integer.toString(100 - newBrick.getDamageLevel() * 25);
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setForeground(Color.WHITE);
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setText("<html>Brick<br>" + dLevel + "%</html>");
         labelArray[newBrick.getPosX()][newBrick.getPosY()].getParent().revalidate();
 
 
     }
-    
-    public static void removeDeadBricks(Brick newBrick){
+
+    public static void removeDeadBricks(Brick newBrick) {
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
-        labelArray[newBrick.getPosX()][newBrick.getPosY()].setText(Integer.toString(newBrick.getPosX())+Integer.toString(newBrick.getPosY()));
+        labelArray[newBrick.getPosX()][newBrick.getPosY()].setText(Integer.toString(newBrick.getPosX()) + Integer.toString(newBrick.getPosY()));
+    }
+
+    public static void updatePlayerLocation(Player player) {
+        int a = player.getPosX();
+        int b = player.getPosY();
+        String[] names1 = {"P0", "P1", "P2", "P3", "P4"};
+        String[][] imgName = {{"/img/tank_red.jpg", "/img/tank_red1.jpg", "/img/tank_red2.jpg", "/img/tank_red3.jpg"}, {"/img/tank_orange.jpg", "/img/tank_orange1.jpg", "/img/tank_orange2.jpg", "/img/tank_orange3.jpg"}, {"/img/tank_green.jpg", "/img/tank_green1.jpg", "/img/tank_green2.jpg", "/img/tank_green3.jpg"}, {"/img/tank_gray.jpg", "/img/tank_gray1.jpg", "/img/tank_gray2.jpg", "/img/tank_gray3.jpg"}, {"/img/tank_blue.jpg", "/img/tank_blue1.jpg", "/img/tank_blue2.jpg", "/img/tank_blue3.jpg"}};
+        for (int z = 0; z < 5; z++) {
+            if (player.getPlayerName().equals(names1[z])) {
+                for (int k = 0; k < 5; k++) {
+                    if (player.getDirect() == k) {
+                        //System.out.println(player);
+                        labelArray[a][b].setIcon(new ImageIcon(MapMain.class.getResource(imgName[z][k])));
+                        labelArray[a][b].setForeground(Color.YELLOW);
+                        labelArray[a][b].setText(Integer.toString(a) + Integer.toString(b));
+                    }
+                }
+
+            }
+        }
+
     }
 
     /**

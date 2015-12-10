@@ -10,19 +10,56 @@ package map;
  */
 public class Player {
     private String playerName;
-    private int points;
+    private int posX;
+    private int posY;
+    private int direct;
     private int whetherShoot;
-    private int health;
+     private int health;
     private int coins;
+    private int points;
 
-    public Player(String playerName, int points, int whetherShoot, int health, int coins) {
+    public Player(String playerName, int posX, int posY, int direct, int whetherShoot, int health, int coins, int points) {
         this.playerName = playerName;
-        this.points = points;
+        this.posX = posX;
+        this.posY = posY;
+        this.direct = direct;
         this.whetherShoot = whetherShoot;
         this.health = health;
         this.coins = coins;
+        this.points = points;
     }
-    
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+
+    public int getDirect() {
+        return direct;
+    }
+
+    public void setDirect(int direct) {
+        this.direct = direct;
+    }
 
     public int getWhetherShoot() {
         return whetherShoot;
@@ -31,67 +68,35 @@ public class Player {
     public void setWhetherShoot(int whetherShoot) {
         this.whetherShoot = whetherShoot;
     }
-    
-    
 
-   
-    
-
-    /**
-     * @return the playerName
-     */
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    /**
-     * @param playerName the playerName to set
-     */
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    /**
-     * @return the points
-     */
-    public int getPoints() {
-        return points;
-    }
-
-    /**
-     * @param points the points to set
-     */
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    /**
-     * @return the coins
-     */
-    public int getCoins() {
-        return coins;
-    }
-
-    /**
-     * @param coins the coins to set
-     */
-    public void setCoins(int coins) {
-        this.coins = coins;
-    }
-
-    /**
-     * @return the health
-     */
     public int getHealth() {
         return health;
     }
 
-    /**
-     * @param health the health to set
-     */
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
+    
+   
+
+    
     
     
 }

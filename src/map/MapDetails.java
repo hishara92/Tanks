@@ -144,29 +144,50 @@ public class MapDetails {
         map[y][x] = tokens.get(0);
         if ("P0".equals(tokens.get(0))) {
             if (player1 == null) {
-                player1 = new Player(tokens.get(0), Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)));
+                player1 = new Player(tokens.get(0),x,y, Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)),Integer.parseInt(tokens.get(6)));
                 playerList.add(player1);
             } else {
                 player1.setPlayerName(tokens.get(0));
-                player1.setPoints(Integer.parseInt(tokens.get(2)));
+                player1.setPosX(x);
+                player1.setPosY(y);
+                player1.setDirect(Integer.parseInt(tokens.get(2)));
                 player1.setWhetherShoot(Integer.parseInt(tokens.get(3)));
                 player1.setHealth(Integer.parseInt(tokens.get(4)));
                 player1.setCoins(Integer.parseInt(tokens.get(5)));
+                player1.setPoints(Integer.parseInt(tokens.get(6)));
             }
             P0 = tokens;
+            MapMain.updatePlayerLocation(player1);
         } else if ("P1".equals(tokens.get(0))) {
             if (player2 == null) {
-                player2 = new Player(tokens.get(0), Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)));
-                playerList.add(player1);
+                player2 = new Player(tokens.get(0),x,y, Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)),Integer.parseInt(tokens.get(6)));
+                playerList.add(player2);
             } else {
-                player1.setPlayerName(tokens.get(0));
-                player1.setPoints(Integer.parseInt(tokens.get(2)));
-                player1.setWhetherShoot(Integer.parseInt(tokens.get(3)));
-                player1.setHealth(Integer.parseInt(tokens.get(4)));
-                player1.setCoins(Integer.parseInt(tokens.get(5)));
+                player2.setPlayerName(tokens.get(0));
+                player2.setPosX(x);
+                player2.setPosY(y);
+                player2.setDirect(Integer.parseInt(tokens.get(2)));
+                player2.setWhetherShoot(Integer.parseInt(tokens.get(3)));
+                player2.setHealth(Integer.parseInt(tokens.get(4)));
+                player2.setCoins(Integer.parseInt(tokens.get(5)));
+                player2.setPoints(Integer.parseInt(tokens.get(6)));
          }
             P1 = tokens;
+            MapMain.updatePlayerLocation(player2);
         } else if ("P2".equals(tokens.get(0))) {
+            if (player3 == null) {
+                player3 = new Player(tokens.get(0),x,y, Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)),Integer.parseInt(tokens.get(6)));
+                playerList.add(player3);
+            } else {
+                player3.setPlayerName(tokens.get(0));
+                player3.setPosX(x);
+                player3.setPosY(y);
+                player3.setDirect(Integer.parseInt(tokens.get(2)));
+                player3.setWhetherShoot(Integer.parseInt(tokens.get(3)));
+                player3.setHealth(Integer.parseInt(tokens.get(4)));
+                player3.setCoins(Integer.parseInt(tokens.get(5)));
+                player3.setPoints(Integer.parseInt(tokens.get(6)));
+         }
             P2 = tokens;
         } else if ("P3".equals(tokens.get(0))) {
             P3 = tokens;
@@ -176,8 +197,8 @@ public class MapDetails {
             
         }
         printMap();
-        System.out.println(P0);
-        System.out.println(P1);
+        //System.out.println(P0);
+        //System.out.println(P1);
     }
 
     public static void updateBricks(String B) {
@@ -200,14 +221,14 @@ public class MapDetails {
                     if (brickList.get(i).getPosX() == x && brickList.get(i).getPosY() == y) {
                         brickList.get(i).setDamageLevel(Integer.parseInt(info[2]));
                         if(brickList.get(i).getDamageLevel()==4){
-                            MapMain.removeDeadBricks(brickList.get(i));
-                            map[brickList.get(i).getPosX()][brickList.get(i).getPosY()]="0";
+                            //MapMain.removeDeadBricks(brickList.get(i));
+                            map[brickList.get(i).getPosY()][brickList.get(i).getPosX()]="0";
                             //System.out.println(brickList.get(i).getPosX());
                             brickList.remove(brickList.get(i));
                             
                         }
                         MapMain.brickDamageChange(brickList.get(i));
-                        break;
+                        //break;
                     }
 
                 }
