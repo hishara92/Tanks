@@ -6,8 +6,10 @@ package Gui;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import map.Brick;
 import map.KeyCtrl;
 import map.MapDetails;
@@ -20,7 +22,9 @@ import map.Player;
 public class MapMain extends javax.swing.JFrame {
 
     static JLabel[][] labelArray = new JLabel[10][10];
-
+    static JLabel[][] pointLabels = new JLabel[6][4];
+    private int mapMax;
+    MapDetails md=new MapDetails();
     /**
      * Creates new form MapMain
      */
@@ -52,6 +56,7 @@ public class MapMain extends javax.swing.JFrame {
                         labelArray[y][x].setText("Water");
                         break;
                     case "0":
+                        labelArray[y][x].setForeground(Color.BLACK);
                         labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/prt.jpg")));
                         labelArray[y][x].setText(Integer.toString(y) + Integer.toString(x));
                         break;
@@ -60,7 +65,37 @@ public class MapMain extends javax.swing.JFrame {
             }
 
         }
-        //labelArray[1][1].setText("<html>Brick<br>" + 24 + "</html>");
+        
+        String[] headers={"Player","Coin","Points","Health"};
+        String[] headers1={"Player1","Player2","Player3","Player4","Player5"};
+        for(int x=0;x<6;x++){
+            for(int y=0;y<4;y++){
+                pointPanal.setLayout(new GridLayout(6, 4));
+                //pointPanal.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
+                pointLabels[x][y]=new JLabel();
+                //pointLabels[x][y].setAlignmentX(CENTER_ALIGNMENT);
+                //pointLabels[x][y].setHorizontalTextPosition(JLabel.CENTER);
+                pointPanal.add(pointLabels[x][y]);
+                pointLabels[x][y].setPreferredSize(new Dimension(100, 25));
+                pointLabels[x][y].setMaximumSize(new Dimension(100, 25));
+                pointLabels[x][y].setMinimumSize(new Dimension(100, 25));
+                if(x==0){
+                    pointLabels[x][y].setFont(new Font("cooper black", Font.PLAIN, 14));
+                    pointLabels[x][y].setText(headers[y]);
+                }
+                else{
+                    if(y==0){
+                        pointLabels[x][y].setFont(new Font("cooper black", Font.PLAIN, 12));
+                        pointLabels[x][y].setForeground(Color.RED);
+                        pointLabels[x][y].setText(headers1[x-1]);
+                    }
+                    else{
+                        
+                    }
+                }
+            }
+        }
+        
 
     }
 
@@ -76,6 +111,7 @@ public class MapMain extends javax.swing.JFrame {
                         labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/coin.jpg")));
                         break;
                     case "0":
+                        labelArray[j][i].setForeground(Color.BLACK);
                         labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
                         labelArray[j][i].setHorizontalTextPosition(JLabel.CENTER);
                         labelArray[j][i].setText(Integer.toString(j) + Integer.toString(i));
@@ -103,6 +139,41 @@ public class MapMain extends javax.swing.JFrame {
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setText(Integer.toString(newBrick.getPosX()) + Integer.toString(newBrick.getPosY()));
     }
+    
+    public static void changePlayerTracks(String name,int x,int y){
+        for (int i = 0; i <10; i++) {
+            for (int j = 0; j < 10; j++) {
+                //System.out.print(map[i][j] + "  ");
+                if(MapDetails.map[i][j].equals(name) && x==j && y==i){
+                    //System.out.println(i+"   "+j);
+                    
+                }
+                else{
+                    if(MapDetails.map[i][j].equals(name)){
+                        MapDetails.map[i][j]="0";
+                    labelArray[j][i].setForeground(Color.BLACK);
+                    labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
+                        labelArray[j][i].setHorizontalTextPosition(JLabel.CENTER);
+                        labelArray[j][i].setText(Integer.toString(j) + Integer.toString(i));
+                        labelArray[j][i].getParent().revalidate();
+                    }
+                    
+                }
+            }
+            //System.out.println();
+        }
+    }
+    
+    public static void updatePointTable(ArrayList<Player> players){
+        for(int x=0;x<players.size();x++){
+            Integer[] det={players.get(x).getPoints(),players.get(x).getCoins(),players.get(x).getHealth()};
+            for(int y=1;y<4;y++){
+                pointLabels[x+1][y].setFont(new Font("Times new roman", Font.PLAIN, 12));
+                pointLabels[x+1][y].setForeground(Color.BLUE);
+                pointLabels[x+1][y].setText(Integer.toString(det[y-1]));
+            }
+        }
+    }
 
     public static void updatePlayerLocation(Player player) {
         int a = player.getPosX();
@@ -118,7 +189,9 @@ public class MapMain extends javax.swing.JFrame {
                         labelArray[a][b].setForeground(Color.YELLOW);
                         labelArray[a][b].setText(Integer.toString(a) + Integer.toString(b));
                     }
+                    
                 }
+                MapMain.changePlayerTracks(player.getPlayerName(), player.getPosX(), player.getPosY());
 
             }
         }
@@ -136,130 +209,65 @@ public class MapMain extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         mapPanel = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        name1 = new javax.swing.JLabel();
-        name2 = new javax.swing.JLabel();
-        name4 = new javax.swing.JLabel();
-        name3 = new javax.swing.JLabel();
-        name5 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        pointPanal = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1500, 700));
 
+        mapPanel.setBorder(new javax.swing.border.MatteBorder(null));
         mapPanel.setPreferredSize(new java.awt.Dimension(500, 500));
-        mapPanel.setLayout(new java.awt.GridLayout());
+        mapPanel.setLayout(new java.awt.GridLayout(1, 0));
 
-        jLabel1.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 14)); // NOI18N
-        jLabel1.setText("Player");
+        pointPanal.setBorder(new javax.swing.border.MatteBorder(null));
 
-        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 14)); // NOI18N
-        jLabel2.setText("Coins");
-
-        jLabel3.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 14)); // NOI18N
-        jLabel3.setText("Points");
-
-        jLabel4.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 14)); // NOI18N
-        jLabel4.setText("Health");
-
-        name1.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
-        name1.setForeground(new java.awt.Color(255, 0, 51));
-        name1.setText("Player 1");
-
-        name2.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
-        name2.setForeground(new java.awt.Color(255, 0, 51));
-        name2.setText("Player 2");
-
-        name4.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
-        name4.setForeground(new java.awt.Color(255, 0, 51));
-        name4.setText("Player 4");
-
-        name3.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
-        name3.setForeground(new java.awt.Color(255, 0, 51));
-        name3.setText("Player 3");
-
-        name5.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 12)); // NOI18N
-        name5.setForeground(new java.awt.Color(255, 0, 51));
-        name5.setText("Player 5");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(name1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(name5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(name2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(name4, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                        .addGap(9, 9, 9))
-                    .addComponent(name3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout pointPanalLayout = new javax.swing.GroupLayout(pointPanal);
+        pointPanal.setLayout(pointPanalLayout);
+        pointPanalLayout.setHorizontalGroup(
+            pointPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addComponent(name1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(name2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(name3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(name4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(name5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+        pointPanalLayout.setVerticalGroup(
+            pointPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
         );
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel1.setText("S t a s t i c s");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(183, 183, 183)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 570, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(pointPanal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(183, 183, 183))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pointPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(65, 65, 65))
         );
@@ -268,7 +276,9 @@ public class MapMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 981, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +299,7 @@ public class MapMain extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -314,17 +324,9 @@ public class MapMain extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel mapPanel;
-    private javax.swing.JLabel name1;
-    private javax.swing.JLabel name2;
-    private javax.swing.JLabel name3;
-    private javax.swing.JLabel name4;
-    private javax.swing.JLabel name5;
+    private javax.swing.JPanel pointPanal;
     // End of variables declaration//GEN-END:variables
 }

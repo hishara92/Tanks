@@ -129,8 +129,6 @@ public class MapDetails {
     }
 
     private static void playerUpdateStatus(String P) {
-
-
         ArrayList<String> tokens = new ArrayList<String>();
         StringTokenizer player = new StringTokenizer(P, ";");
         while (player.hasMoreTokens()) {

@@ -34,6 +34,7 @@ public class ClientMain extends Thread{
                 if(s.charAt(0)=='I'&&s.charAt(1)==':'){//for priority I
                     MapDetails.createMap(s);
                     new MapMain().setVisible(true);
+                    //new MapMain().setVisible(true);
                 }
                 else if(s.charAt(0)=='G'&&s.charAt(1)==':'){
                     
@@ -54,6 +55,7 @@ public class ClientMain extends Thread{
                  else{
                      JOptionPane.showMessageDialog(null, s);
                  }
+                MapMain.updatePointTable(MapDetails.playerList);
                  
             } catch (IOException ex) {
                 Logger.getLogger(ClientMain.class.getName()).log(Level.SEVERE, null, ex);
