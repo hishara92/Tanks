@@ -252,7 +252,9 @@ public class MapDetails {
         helObj = new HealthPack(y, x, Integer.parseInt(details[2].substring(0, details[2].length() - 1)));
         //System.out.println(Integer.parseInt(details[2].substring(0, details[2].length() - 1)));
         healthPackList.add(helObj);
-
+        Runnable r = new timeHandler(helObj);
+        new Thread(r).start();
+        MapMain.updateImage();
         map[y][x] = "L";      //To indicate life packs
 
     }
@@ -265,7 +267,9 @@ public class MapDetails {
 //C:7,0:26262:1058#
         coinObj = new Coin(y, x, Integer.parseInt(details[2]), Integer.parseInt(details[3].substring(0, details[3].length() - 1)));
         coinList.add(coinObj);
-
+        Runnable r = new timeHandler(coinObj);
+        new Thread(r).start();
+        MapMain.updateImage();
         map[y][x] = "C";      //To indicate Coin piles
 
     }

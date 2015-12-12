@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import map.Brick;
+import map.Coin;
+import map.HealthPack;
 import map.KeyCtrl;
 import map.MapDetails;
 import map.Player;
@@ -24,7 +26,8 @@ public class MapMain extends javax.swing.JFrame {
     static JLabel[][] labelArray = new JLabel[10][10];
     static JLabel[][] pointLabels = new JLabel[6][4];
     private int mapMax;
-    MapDetails md=new MapDetails();
+    MapDetails md = new MapDetails();
+
     /**
      * Creates new form MapMain
      */
@@ -57,6 +60,7 @@ public class MapMain extends javax.swing.JFrame {
                         break;
                     case "0":
                         labelArray[y][x].setForeground(Color.BLACK);
+                        labelArray[y][x].setFont(new Font("times new roman", Font.BOLD, 11));
                         labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/prt.jpg")));
                         labelArray[y][x].setText(Integer.toString(y) + Integer.toString(x));
                         break;
@@ -65,37 +69,33 @@ public class MapMain extends javax.swing.JFrame {
             }
 
         }
-        
-        String[] headers={"Player","Coin","Points","Health"};
-        String[] headers1={"Player1","Player2","Player3","Player4","Player5"};
-        for(int x=0;x<6;x++){
-            for(int y=0;y<4;y++){
+
+        String[] headers = {"Player", "Coin", "Points", "Health"};
+        String[] headers1 = {"Player1", "Player2", "Player3", "Player4", "Player5"};
+        for (int x = 0; x < 6; x++) {
+            for (int y = 0; y < 4; y++) {
                 pointPanal.setLayout(new GridLayout(6, 4));
-                //pointPanal.setBorder(BorderFactory.createEmptyBorder(0,10,10,10));
-                pointLabels[x][y]=new JLabel();
+                pointLabels[x][y] = new JLabel();
                 //pointLabels[x][y].setAlignmentX(CENTER_ALIGNMENT);
                 //pointLabels[x][y].setHorizontalTextPosition(JLabel.CENTER);
                 pointPanal.add(pointLabels[x][y]);
                 pointLabels[x][y].setPreferredSize(new Dimension(100, 25));
                 pointLabels[x][y].setMaximumSize(new Dimension(100, 25));
                 pointLabels[x][y].setMinimumSize(new Dimension(100, 25));
-                if(x==0){
+                if (x == 0) {
                     pointLabels[x][y].setFont(new Font("cooper black", Font.PLAIN, 14));
                     pointLabels[x][y].setText(headers[y]);
-                }
-                else{
-                    if(y==0){
+                } else {
+                    if (y == 0) {
                         pointLabels[x][y].setFont(new Font("cooper black", Font.PLAIN, 12));
                         pointLabels[x][y].setForeground(Color.RED);
-                        pointLabels[x][y].setText(headers1[x-1]);
-                    }
-                    else{
-                        
+                        pointLabels[x][y].setText(headers1[x - 1]);
+                    } else {
                     }
                 }
             }
         }
-        
+
 
     }
 
@@ -104,14 +104,33 @@ public class MapMain extends javax.swing.JFrame {
             for (int j = 0; j < 10; j++) {
 
                 switch (MapDetails.map[i][j]) {
+                    
                     case "L":
+                        //int start=(int) System.currentTimeMillis();
+                        //System.out.println(start);
                         labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/health.jpg")));
+                        for (HealthPack h : MapDetails.healthPackList) {
+                            if (h.getPosX() == i && h.getPosY() == j) {
+                                labelArray[j][i].setFont(new Font("cooper black", Font.PLAIN, 10));
+                                labelArray[j][i].setForeground(Color.BLACK);
+                                labelArray[j][i].setText("<html>Health<br>" + h.getAppearTime() + "</html>");
+                            }
+                        }
+
                         break;
                     case "C":
                         labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/coin.jpg")));
+                        for (Coin c : MapDetails.coinList) {
+                            if (c.getPosX() == i && c.getPosY() == j) {
+                                labelArray[j][i].setFont(new Font("cooper black", Font.PLAIN, 10));
+                                labelArray[j][i].setForeground(Color.BLACK);
+                                labelArray[j][i].setText("<html>" + c.getAmount() + "$<br>" + c.getAppearTime() + "</html>");
+                            }
+                        }
                         break;
                     case "0":
                         labelArray[j][i].setForeground(Color.BLACK);
+                        labelArray[j][i].setFont(new Font("times new roman", Font.BOLD, 11));
                         labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
                         labelArray[j][i].setHorizontalTextPosition(JLabel.CENTER);
                         labelArray[j][i].setText(Integer.toString(j) + Integer.toString(i));
@@ -137,40 +156,38 @@ public class MapMain extends javax.swing.JFrame {
 
     public static void removeDeadBricks(Brick newBrick) {
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
-        labelArray[newBrick.getPosX()][newBrick.getPosY()].setText(Integer.toString(newBrick.getPosX()) + Integer.toString(newBrick.getPosY()));
+        //labelArray[newBrick.getPosX()][newBrick.getPosY()].setText(Integer.toString(newBrick.getPosX()) + Integer.toString(newBrick.getPosY()));
     }
-    
-    public static void changePlayerTracks(String name,int x,int y){
-        for (int i = 0; i <10; i++) {
+
+    public static void changePlayerTracks(String name, int x, int y) {
+        for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 //System.out.print(map[i][j] + "  ");
-                if(MapDetails.map[i][j].equals(name) && x==j && y==i){
+                if (MapDetails.map[i][j].equals(name) && x == j && y == i) {
                     //System.out.println(i+"   "+j);
-                    
-                }
-                else{
-                    if(MapDetails.map[i][j].equals(name)){
-                        MapDetails.map[i][j]="0";
-                    labelArray[j][i].setForeground(Color.BLACK);
-                    labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
+                } else {
+                    if (MapDetails.map[i][j].equals(name)) {
+                        MapDetails.map[i][j] = "0";
+                        labelArray[j][i].setForeground(Color.BLACK);
+                        labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/prt.jpg")));
                         labelArray[j][i].setHorizontalTextPosition(JLabel.CENTER);
                         labelArray[j][i].setText(Integer.toString(j) + Integer.toString(i));
                         labelArray[j][i].getParent().revalidate();
                     }
-                    
+
                 }
             }
             //System.out.println();
         }
     }
-    
-    public static void updatePointTable(ArrayList<Player> players){
-        for(int x=0;x<players.size();x++){
-            Integer[] det={players.get(x).getPoints(),players.get(x).getCoins(),players.get(x).getHealth()};
-            for(int y=1;y<4;y++){
-                pointLabels[x+1][y].setFont(new Font("Times new roman", Font.PLAIN, 12));
-                pointLabels[x+1][y].setForeground(Color.BLUE);
-                pointLabels[x+1][y].setText(Integer.toString(det[y-1]));
+
+    public static void updatePointTable(ArrayList<Player> players) {
+        for (int x = 0; x < players.size(); x++) {
+            Integer[] det = {players.get(x).getPoints(), players.get(x).getCoins(), players.get(x).getHealth()};
+            for (int y = 1; y < 4; y++) {
+                pointLabels[x + 1][y].setFont(new Font("Times new roman", Font.PLAIN, 12));
+                pointLabels[x + 1][y].setForeground(Color.BLUE);
+                pointLabels[x + 1][y].setText(Integer.toString(det[y - 1]));
             }
         }
     }
@@ -189,7 +206,7 @@ public class MapMain extends javax.swing.JFrame {
                         labelArray[a][b].setForeground(Color.YELLOW);
                         labelArray[a][b].setText(Integer.toString(a) + Integer.toString(b));
                     }
-                    
+
                 }
                 MapMain.changePlayerTracks(player.getPlayerName(), player.getPosX(), player.getPosY());
 
