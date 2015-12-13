@@ -33,9 +33,17 @@ public class MapMain extends javax.swing.JFrame {
      */
     public MapMain() {
         initComponents();
+        //JLabel j0=new JLabel();
+        
 
         mapPanel.requestFocus();
         mapPanel.addKeyListener(new KeyCtrl());
+        JLabel jl=new JLabel();
+        jPanel1.add(jl);
+        jl.setPreferredSize(new Dimension(1500,700));
+        jl.setMaximumSize(new Dimension(1500,700));
+        jl.setMinimumSize(new Dimension(1500,700));
+        jl.setIcon(new ImageIcon(getClass().getResource("/img/wallpaper.jpg")));
 
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
@@ -70,7 +78,7 @@ public class MapMain extends javax.swing.JFrame {
 
         }
 
-        String[] headers = {"Player", "Coin", "Points", "Health"};
+        String[] headers = {"Player", "Points","  Coins",  "Health"};
         String[] headers1 = {"Player1", "Player2", "Player3", "Player4", "Player5"};
         for (int x = 0; x < 6; x++) {
             for (int y = 0; y < 4; y++) {
@@ -83,11 +91,11 @@ public class MapMain extends javax.swing.JFrame {
                 pointLabels[x][y].setMaximumSize(new Dimension(100, 25));
                 pointLabels[x][y].setMinimumSize(new Dimension(100, 25));
                 if (x == 0) {
-                    pointLabels[x][y].setFont(new Font("cooper black", Font.PLAIN, 14));
+                    pointLabels[x][y].setFont(new Font("cooper black", Font.PLAIN, 18));
                     pointLabels[x][y].setText(headers[y]);
                 } else {
                     if (y == 0) {
-                        pointLabels[x][y].setFont(new Font("cooper black", Font.PLAIN, 12));
+                        pointLabels[x][y].setFont(new Font("cooper black", Font.PLAIN, 15));
                         pointLabels[x][y].setForeground(Color.RED);
                         pointLabels[x][y].setText(headers1[x - 1]);
                     } else {
@@ -181,13 +189,15 @@ public class MapMain extends javax.swing.JFrame {
         }
     }
 
+    
+    
     public static void updatePointTable(ArrayList<Player> players) {
         for (int x = 0; x < players.size(); x++) {
             Integer[] det = {players.get(x).getPoints(), players.get(x).getCoins(), players.get(x).getHealth()};
             for (int y = 1; y < 4; y++) {
-                pointLabels[x + 1][y].setFont(new Font("Times new roman", Font.PLAIN, 12));
+                pointLabels[x + 1][y].setFont(new Font("cooper black", Font.PLAIN, 18));
                 pointLabels[x + 1][y].setForeground(Color.BLUE);
-                pointLabels[x + 1][y].setText(Integer.toString(det[y - 1]));
+                pointLabels[x + 1][y].setText("   "+Integer.toString(det[y - 1]));
             }
         }
     }
@@ -229,16 +239,24 @@ public class MapMain extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         pointPanal = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1500, 700));
+        jPanel1.setLayout(null);
 
         mapPanel.setBorder(new javax.swing.border.MatteBorder(null));
+        mapPanel.setOpaque(false);
         mapPanel.setPreferredSize(new java.awt.Dimension(500, 500));
         mapPanel.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel1.add(mapPanel);
+        mapPanel.setBounds(45, 37, 500, 500);
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(183, 624, 0, 0);
 
         pointPanal.setBorder(new javax.swing.border.MatteBorder(null));
+        pointPanal.setOpaque(false);
 
         javax.swing.GroupLayout pointPanalLayout = new javax.swing.GroupLayout(pointPanal);
         pointPanal.setLayout(pointPanalLayout);
@@ -251,43 +269,18 @@ public class MapMain extends javax.swing.JFrame {
             .addGap(0, 280, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel1.setText("S t a s t i c s");
+        jPanel1.add(pointPanal);
+        pointPanal.setBounds(580, 50, 443, 282);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(183, 183, 183)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pointPanal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(183, 183, 183))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mapPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pointPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(65, 65, 65))
-        );
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 0, 204));
+        jLabel1.setText("S t a s t i c s");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(750, 20, 103, 25);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/WOT.jpg"))); // NOI18N
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(0, 0, 1040, 690);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -341,6 +334,7 @@ public class MapMain extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel mapPanel;

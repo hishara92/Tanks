@@ -2,6 +2,7 @@
 package tank;
 
 import Gui.MapMain;
+import Gui.Wracked;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -53,7 +54,20 @@ public class ClientMain extends Thread{
                  }
                 
                  else{
-                     JOptionPane.showMessageDialog(null, s);
+                     if(s.equals("DEAD#")){
+                         new Wracked().setVisible(true);
+                         try {
+                             Thread.sleep(100);
+                             
+                         } catch (InterruptedException ex) {
+                             Logger.getLogger(ClientMain.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                         
+                     }
+                     else{
+                         JOptionPane.showMessageDialog(null, s);
+                     }
+                     
                  }
                 MapMain.updatePointTable(MapDetails.playerList);
                  
@@ -65,9 +79,12 @@ public class ClientMain extends Thread{
     }
     public static void main(String[] args) {
         ClientServer tankClient=new ClientServer();
+        ClientServer tankClient1=new ClientServer();
         try {
             ClientMain tankServer=new ClientMain(tankClient);
             tankServer.start();
+//            ClientMain tankServer1=new ClientMain(tankClient1);
+//            tankServer1.start();
         } catch (IOException ex) {
             Logger.getLogger(ClientMain.class.getName()).log(Level.SEVERE, null, ex);
         }
