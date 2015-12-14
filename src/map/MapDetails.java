@@ -212,10 +212,39 @@ public class MapDetails {
                 player3.setPoints(Integer.parseInt(tokens.get(6)));
             }
             P2 = tokens;
+            MapMain.updatePlayerLocation(player3);
         } else if ("P3".equals(tokens.get(0))) {
+            if (player4 == null) {
+                player4 = new Player(tokens.get(0), x, y, Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)), Integer.parseInt(tokens.get(6)));
+                playerList.add(player4);
+            } else {
+                player4.setPlayerName(tokens.get(0));
+                player4.setPosX(x);
+                player4.setPosY(y);
+                player4.setDirect(Integer.parseInt(tokens.get(2)));
+                player4.setWhetherShoot(Integer.parseInt(tokens.get(3)));
+                player4.setHealth(Integer.parseInt(tokens.get(4)));
+                player4.setCoins(Integer.parseInt(tokens.get(5)));
+                player4.setPoints(Integer.parseInt(tokens.get(6)));
+            }
             P3 = tokens;
+            MapMain.updatePlayerLocation(player4);
         } else if ("P4".equals(tokens.get(0))) {
+            if (player5 == null) {
+                player5 = new Player(tokens.get(0), x, y, Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)), Integer.parseInt(tokens.get(6)));
+                playerList.add(player5);
+            } else {
+                player5.setPlayerName(tokens.get(0));
+                player5.setPosX(x);
+                player5.setPosY(y);
+                player5.setDirect(Integer.parseInt(tokens.get(2)));
+                player5.setWhetherShoot(Integer.parseInt(tokens.get(3)));
+                player5.setHealth(Integer.parseInt(tokens.get(4)));
+                player5.setCoins(Integer.parseInt(tokens.get(5)));
+                player5.setPoints(Integer.parseInt(tokens.get(6)));
+            }
             P4 = tokens;
+            MapMain.updatePlayerLocation(player5);
         } else {
         }
         printMap();

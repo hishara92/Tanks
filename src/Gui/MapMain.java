@@ -5,11 +5,10 @@
 package Gui;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.border.Border;
 import map.Brick;
 import map.Coin;
 import map.HealthPack;
@@ -33,16 +32,18 @@ public class MapMain extends javax.swing.JFrame {
      */
     public MapMain() {
         initComponents();
+         this.setLocationRelativeTo(null);
+        //this.setResizable(false);
         //JLabel j0=new JLabel();
-        
+
 
         mapPanel.requestFocus();
         mapPanel.addKeyListener(new KeyCtrl());
-        JLabel jl=new JLabel();
+        JLabel jl = new JLabel();
         jPanel1.add(jl);
-        jl.setPreferredSize(new Dimension(1500,700));
-        jl.setMaximumSize(new Dimension(1500,700));
-        jl.setMinimumSize(new Dimension(1500,700));
+        jl.setPreferredSize(new Dimension(1500, 700));
+        jl.setMaximumSize(new Dimension(1500, 700));
+        jl.setMinimumSize(new Dimension(1500, 700));
         jl.setIcon(new ImageIcon(getClass().getResource("/img/wallpaper.jpg")));
 
         for (int x = 0; x < 10; x++) {
@@ -78,7 +79,7 @@ public class MapMain extends javax.swing.JFrame {
 
         }
 
-        String[] headers = {"Player", "Points","  Coins",  "Health"};
+        String[] headers = {"Player", "Points", "  Coins", "Health"};
         String[] headers1 = {"Player1", "Player2", "Player3", "Player4", "Player5"};
         for (int x = 0; x < 6; x++) {
             for (int y = 0; y < 4; y++) {
@@ -112,7 +113,7 @@ public class MapMain extends javax.swing.JFrame {
             for (int j = 0; j < 10; j++) {
 
                 switch (MapDetails.map[i][j]) {
-                    
+
                     case "L":
                         //int start=(int) System.currentTimeMillis();
                         //System.out.println(start);
@@ -144,6 +145,14 @@ public class MapMain extends javax.swing.JFrame {
                         labelArray[j][i].setText(Integer.toString(j) + Integer.toString(i));
                         labelArray[j][i].getParent().revalidate();
                         break;
+                    case "W":
+                        labelArray[j][i].setForeground(Color.BLACK);
+                        labelArray[j][i].setFont(new Font("times new roman", Font.BOLD, 11));
+                        labelArray[j][i].setIcon(new ImageIcon(MapMain.class.getResource("/img/water.jpg")));
+                        labelArray[j][i].setHorizontalTextPosition(JLabel.CENTER);
+                        labelArray[j][i].setText("Water");
+                        labelArray[j][i].getParent().revalidate();
+                        break;
                 }
 
 
@@ -153,9 +162,23 @@ public class MapMain extends javax.swing.JFrame {
     }
 
     public static void brickDamageChange(Brick newBrick) {
-        labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/brick.jpg")));
+        
         String dLevel = Integer.toString(100 - newBrick.getDamageLevel() * 25);
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setForeground(Color.WHITE);
+        switch (dLevel) {
+            case "75":
+                labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/brick75.jpg")));
+                break;
+            case "50":
+                labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/brick50.jpg")));
+                break;
+            case "25":
+                labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/brick25.jpg")));
+                break;
+            default:
+                labelArray[newBrick.getPosX()][newBrick.getPosY()].setIcon(new ImageIcon(MapMain.class.getResource("/img/brick.jpg")));
+                break;
+        }
         labelArray[newBrick.getPosX()][newBrick.getPosY()].setText("<html>Brick<br>" + dLevel + "%</html>");
         labelArray[newBrick.getPosX()][newBrick.getPosY()].getParent().revalidate();
 
@@ -189,16 +212,91 @@ public class MapMain extends javax.swing.JFrame {
         }
     }
 
-    
-    
     public static void updatePointTable(ArrayList<Player> players) {
         for (int x = 0; x < players.size(); x++) {
             Integer[] det = {players.get(x).getPoints(), players.get(x).getCoins(), players.get(x).getHealth()};
             for (int y = 1; y < 4; y++) {
                 pointLabels[x + 1][y].setFont(new Font("cooper black", Font.PLAIN, 18));
                 pointLabels[x + 1][y].setForeground(Color.BLUE);
-                pointLabels[x + 1][y].setText("   "+Integer.toString(det[y - 1]));
+                pointLabels[x + 1][y].setText("   " + Integer.toString(det[y - 1]));
             }
+        }
+    }
+    private static int n, m;
+
+    public static void fire(Player player) {
+        n = player.getPosX();
+        m = player.getPosY();
+        switch (player.getDirect()) {
+            case 3:
+                n = n - 1;
+                while (m < 10 && m > -1 && n > -1) {
+                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n])) {
+                        break;
+                    }
+                    labelArray[n][m].setIcon(new ImageIcon(MapMain.class.getResource("/img/blt2.jpg")));
+                    labelArray[n][m].setText("");
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(MapMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    updateImage();
+                    n = n - 1;
+                }
+                break;
+            case 2:
+                m = m + 1;
+                while (n < 10 && m < 10 && m > -1 && n > -1) {
+                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n])) {
+                        break;
+                    }
+                    labelArray[n][m].setIcon(new ImageIcon(MapMain.class.getResource("/img/blt1.jpg")));
+                    labelArray[n][m].setText("");
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(MapMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    updateImage();
+                    m = m + 1;
+                }
+                break;
+            case 1:
+                n = n + 1;
+                while (n < 10 && m < 10 && m > -1 && n > -1) {
+                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n])) {
+                        break;
+                    }
+                    labelArray[n][m].setIcon(new ImageIcon(MapMain.class.getResource("/img/blt0.jpg")));
+                    labelArray[n][m].setText("");
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(MapMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    updateImage();
+                    n = n + 1;
+                }
+                break;
+            case 0:
+                m = m - 1;
+                while (n < 10 && m < 10 && m > -1 && n > -1) {
+                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n])) {
+                        break;
+                    }
+                    labelArray[n][m].setIcon(new ImageIcon(MapMain.class.getResource("/img/blt3.jpg")));
+                    labelArray[n][m].setText("");
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(MapMain.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    updateImage();
+                    m = m - 1;
+                }
+                break;
+
         }
     }
 
@@ -222,6 +320,10 @@ public class MapMain extends javax.swing.JFrame {
 
             }
         }
+        if (player.getWhetherShoot() == 1) {
+            fire(player);
+        }
+
 
     }
 
