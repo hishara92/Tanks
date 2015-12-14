@@ -1,6 +1,7 @@
 
 package tank;
 
+import Gui.LogIn;
 import Gui.MapMain;
 import Gui.Wracked;
 import java.io.*;
@@ -34,7 +35,8 @@ public class ClientMain extends Thread{
                 
                 if(s.charAt(0)=='I'&&s.charAt(1)==':'){//for priority I
                     MapDetails.createMap(s);
-                    new MapMain().setVisible(true);
+                    new LogIn().setVisible(true);
+                    //new MapMain().setVisible(true);
                     //new MapMain().setVisible(true);
                 }
                 else if(s.charAt(0)=='G'&&s.charAt(1)==':'){

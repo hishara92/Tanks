@@ -44,7 +44,7 @@ public class MapMain extends javax.swing.JFrame {
         jl.setPreferredSize(new Dimension(1500, 700));
         jl.setMaximumSize(new Dimension(1500, 700));
         jl.setMinimumSize(new Dimension(1500, 700));
-        jl.setIcon(new ImageIcon(getClass().getResource("/img/wallpaper.jpg")));
+        //jl.setIcon(new ImageIcon(getClass().getResource("/img/wallpaper.jpg")));
 
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
