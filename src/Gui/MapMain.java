@@ -4,6 +4,8 @@
  */
 package Gui;
 
+import Ai.AiMoves;
+import Ai.WaveFront;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -340,6 +342,7 @@ public class MapMain extends javax.swing.JFrame {
         mapPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         pointPanal = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -374,6 +377,15 @@ public class MapMain extends javax.swing.JFrame {
         jPanel1.add(pointPanal);
         pointPanal.setBounds(580, 50, 443, 282);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1);
+        jButton1.setBounds(710, 590, 73, 23);
+
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 204));
         jLabel1.setText("S t a s t i c s");
@@ -399,6 +411,34 @@ public class MapMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         WaveFront w=new WaveFront();
+         //Player newPlayer=new Player();
+         w.getRealMap();
+         w.reviewMap();
+         
+         for (int i = 0; i <10; i++) {
+            for (int j = 0; j < 10; j++) {
+                    System.out.print(w.pathFindMap[i][j]+" ");
+            }
+             System.out.println("");
+        }
+         
+         for (int i = 0; i <10; i++) {
+            for (int j = 0; j < 10; j++) {
+                    w.pathgrid[i][j]=w.pathFindMap[i][j];
+            }
+             //System.out.println("");
+        }
+         w.waveFront(0,8,0,0,'N');
+         
+         AiMoves a=new AiMoves();
+              
+            a.move(w.headDir, MapDetails.player1);
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -435,6 +475,7 @@ public class MapMain extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;

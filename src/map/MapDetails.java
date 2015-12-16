@@ -93,7 +93,7 @@ public class MapDetails {
             y = Integer.parseInt(positions[1]);
             map[y][x] = "W";//W for water
         }
-        printMap();
+        //printMap();
 
     }
 
@@ -247,7 +247,7 @@ public class MapDetails {
             MapMain.updatePlayerLocation(player5);
         } else {
         }
-        printMap();
+        //printMap();
         //System.out.println(P0);
         //System.out.println(P1);
     }

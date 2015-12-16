@@ -1,6 +1,7 @@
 
 package tank;
 
+import Ai.AiTimer;
 import Gui.LogIn;
 import Gui.MapMain;
 import Gui.Wracked;
@@ -23,6 +24,7 @@ public class ClientMain extends Thread{
     }
     @Override
     public void run(){
+        //c.con();
         c.run("JOIN#");//request sent to the server to join
         //new Map().setVisible(true);
         //new MapMain().setVisible(true);
@@ -31,7 +33,7 @@ public class ClientMain extends Thread{
                 socket=serverSocket.accept();
                 BufferedReader msg=new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String s=msg.readLine();
-                System.out.println(s);
+                //System.out.println(s);
                 
                 if(s.charAt(0)=='I'&&s.charAt(1)==':'){//for priority I
                     MapDetails.createMap(s);
@@ -66,6 +68,15 @@ public class ClientMain extends Thread{
                          }
                          
                      }
+//                     else if(s.equals("TO_QUICK#")){
+//                         Thread t1=new Thread(new AiTimer(2000));
+//                         t1.start();
+//                         while(true){
+//                             if(!t1.isAlive()){
+//                                 break;
+//                             }
+//                         }
+//                     }
                      else{
                          JOptionPane.showMessageDialog(null, s);
                      }
