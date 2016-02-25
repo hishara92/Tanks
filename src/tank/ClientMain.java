@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import map.KeyCtrl;
 
 import map.MapDetails;
 
@@ -68,15 +69,37 @@ public class ClientMain extends Thread{
                          }
                          
                      }
-//                     else if(s.equals("TO_QUICK#")){
-//                         Thread t1=new Thread(new AiTimer(2000));
-//                         t1.start();
-//                         while(true){
-//                             if(!t1.isAlive()){
-//                                 break;
-//                             }
-//                         }
-//                     }
+                     else if(s.equals("TOO_QUICK#")){
+                         Thread t1=new Thread(new AiTimer(1000));
+                         t1.start();
+                         while(true){
+                             if(!t1.isAlive()){
+                                 break;
+                             }
+                         }
+                         c.tankControl(KeyCtrl.cmd);
+                     }
+                     
+                     else if(s.equals("INVALID_CELL#")){
+                         Thread t1=new Thread(new AiTimer(1000));
+                         t1.start();
+                         while(true){
+                             if(!t1.isAlive()){
+                                 break;
+                             }
+                         }
+                         String[] m={"UP#","RIGHT#","DOWN#","LEFT#"};
+                         for(int z=0;z<4;z++){
+                             if(KeyCtrl.cmd.equals(m[z])){
+                                 if(z<3){
+                                     c.tankControl(m[z+1]);
+                                 }
+                                 else{
+                                     c.tankControl(m[z-1]);
+                                 }
+                             }
+                         }
+                     }
                      else{
                          JOptionPane.showMessageDialog(null, s);
                      }

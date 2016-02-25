@@ -55,7 +55,7 @@ public class WaveFront {
     public int pathgrid1[][] = new int[X_GRID_SIZE][Y_GRID_SIZE];
     char path[] = new char[1000];
     public char headDir[] = new char[1000];
-    char newheadDir[] = new char[1000];
+    public char newheadDir[] = new char[1000];
     public char finalPath[] = new char[1000];
     int pathCount = 0;
     int i = 0, j = 0;
@@ -95,7 +95,7 @@ public class WaveFront {
         for (i = 0; i < 100; i++) {
             if (finalPath[i] != '\0') {
                 count++;
-                System.out.print(finalPath[i]);
+                //System.out.print(finalPath[i]);
             }
         }
         int tempIterator = 0;
