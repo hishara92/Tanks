@@ -30,6 +30,8 @@ public class WaveFront {
     public int[][] pathFindMap = new int[10][10];
     MapDetails m = new MapDetails();
 
+    
+    //this is to get the current map details
     public void getRealMap() {
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
@@ -38,6 +40,8 @@ public class WaveFront {
         }
     }
 
+    
+    //this is to devide the cells by whether its a traversable cell or not(80=not traversable)
     public void reviewMap() {
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
@@ -61,6 +65,8 @@ public class WaveFront {
     int i = 0, j = 0;
     int row = 0, column = 0;
 
+    
+    //this will give the best path which is calculated by looking at the values filled in wave fill 
     public int waveFront(int targetX, int targetY, int initx, int inity, char dir) {
         int steps = 0;
         curDir = dir;
@@ -144,6 +150,8 @@ public class WaveFront {
         }
     }
 
+    
+    //this will fill the map with values dynamically according to  a pattern
     void waveFill(int x, int y) {
 
         pathgrid1[x][y] = 0;

@@ -18,6 +18,7 @@ import map.HealthPack;
 import map.KeyCtrl;
 import map.MapDetails;
 import map.Player;
+import tank.ClientMain;
 
 /**
  *
@@ -55,6 +56,7 @@ public class MapMain extends javax.swing.JFrame {
                 mapPanel.setLayout(new GridLayout(10, 10));
                 mapPanel.add(labelArray[y][x]);
                 labelArray[y][x].setHorizontalTextPosition(JLabel.CENTER);
+                //these are the main map updates(Assignning pics etc.)
                 switch (MapDetails.map[x][y]) {
                     case "S":
                         labelArray[y][x].setIcon(new ImageIcon(getClass().getResource("/img/stone.jpg")));
@@ -82,6 +84,7 @@ public class MapMain extends javax.swing.JFrame {
 
         }
 
+        //theses are the startup update to the point table(assigning collom and raw names)
         String[] headers = {"Player", "Points", "  Coins", "Health"};
         String[] headers1 = {"Player1", "Player2", "Player3", "Player4", "Player5"};
         for (int x = 0; x < 6; x++) {
@@ -114,6 +117,8 @@ public class MapMain extends javax.swing.JFrame {
 
     }
 
+    
+    //this method is to update cells after a general update(changes to cells)
     public static void updateImage() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -167,6 +172,8 @@ public class MapMain extends javax.swing.JFrame {
         }
     }
 
+    
+    //this method used to show the changes to brick damage
     public static void brickDamageChange(Brick newBrick) {
 
         String dLevel = Integer.toString(100 - newBrick.getDamageLevel() * 25);
@@ -196,6 +203,8 @@ public class MapMain extends javax.swing.JFrame {
         //labelArray[newBrick.getPosX()][newBrick.getPosY()].setText(Integer.toString(newBrick.getPosX()) + Integer.toString(newBrick.getPosY()));
     }
 
+    
+    //this method is used to update the cell image after player leaves a cell
     public static void changePlayerTracks(String name, int x, int y) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -218,6 +227,8 @@ public class MapMain extends javax.swing.JFrame {
         }
     }
 
+    
+    //this method is to update the point table when players are playing
     public static void updatePointTable(ArrayList<Player> players) {
         for (int x = 0; x < players.size(); x++) {
             Integer[] det = {players.get(x).getPoints(), players.get(x).getCoins(), players.get(x).getHealth()};
@@ -230,6 +241,8 @@ public class MapMain extends javax.swing.JFrame {
     }
     private static int n, m;
 
+    
+    //this is to show the animation of a bullet
     public static void fire(Player player) {
         n = player.getPosX();
         m = player.getPosY();
@@ -237,7 +250,7 @@ public class MapMain extends javax.swing.JFrame {
             case 3:
                 n = n - 1;
                 while (m < 10 && m > -1 && n > -1) {
-                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n])) {
+                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n]) || MapDetails.map[m][n].startsWith("p")) {
                         break;
                     }
                     labelArray[n][m].setIcon(new ImageIcon(MapMain.class.getResource("/img/blt2.jpg")));
@@ -254,7 +267,7 @@ public class MapMain extends javax.swing.JFrame {
             case 2:
                 m = m + 1;
                 while (n < 10 && m < 10 && m > -1 && n > -1) {
-                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n])) {
+                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n]) || MapDetails.map[m][n].startsWith("p")) {
                         break;
                     }
                     labelArray[n][m].setIcon(new ImageIcon(MapMain.class.getResource("/img/blt1.jpg")));
@@ -271,7 +284,7 @@ public class MapMain extends javax.swing.JFrame {
             case 1:
                 n = n + 1;
                 while (n < 10 && m < 10 && m > -1 && n > -1) {
-                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n])) {
+                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n]) || MapDetails.map[m][n].startsWith("p")) {
                         break;
                     }
                     labelArray[n][m].setIcon(new ImageIcon(MapMain.class.getResource("/img/blt0.jpg")));
@@ -288,7 +301,7 @@ public class MapMain extends javax.swing.JFrame {
             case 0:
                 m = m - 1;
                 while (n < 10 && m < 10 && m > -1 && n > -1) {
-                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n])) {
+                    if ("B".equals(MapDetails.map[m][n]) || "S".equals(MapDetails.map[m][n]) || MapDetails.map[m][n].startsWith("p")) {
                         break;
                     }
                     labelArray[n][m].setIcon(new ImageIcon(MapMain.class.getResource("/img/blt3.jpg")));
@@ -306,6 +319,8 @@ public class MapMain extends javax.swing.JFrame {
         }
     }
 
+    
+    // this is to update the player location in the gui
     public static void updatePlayerLocation(Player player) {
         int a = player.getPosX();
         int b = player.getPosY();
@@ -451,6 +466,8 @@ public class MapMain extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         final WaveFront w = new WaveFront();
+        //System.out.println(ClientMain.myPlayer.getPlayerName());
+       // System.out.println(ClientMain.myPlayer.getWhetherShoot()+"kkkkkkkkkkkkk");
         //Player newPlayer=new Player();
         w.getRealMap();
         w.reviewMap();
@@ -490,6 +507,7 @@ public class MapMain extends javax.swing.JFrame {
                             c = 'W';
                         }
                     }
+                    //w.waveFront(MapDetails.coinList.get(x).getPosX(), MapDetails.coinList.get(x).getPosX(), MapDetails.myPlayer.getPosX(), MapDetails.myPlayer.getPosY(), c);
                     w.waveFront(MapDetails.coinList.get(x).getPosX(), MapDetails.coinList.get(x).getPosX(), MapDetails.player1.getPosX(), MapDetails.player1.getPosY(), c);
                     final AiMoves a = new AiMoves();
                     Thread t1 = new Thread() {
@@ -514,6 +532,25 @@ public class MapMain extends javax.swing.JFrame {
                             break;
                         }
                     }
+                    
+                    
+                        w.getRealMap();
+                        w.reviewMap();
+
+                        for (int i = 0; i < 10; i++) {
+                            for (int j = 0; j < 10; j++) {
+                                System.out.print(w.pathFindMap[i][j] + " ");
+                            }
+                            System.out.println("");
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            for (int j = 0; j < 10; j++) {
+                                w.pathgrid[i][j] = w.pathFindMap[i][j];
+                            }
+                            //System.out.println("");
+                        }
+                    
 
                     continue;
 

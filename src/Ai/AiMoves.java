@@ -22,6 +22,8 @@ public class AiMoves {
     private char[] direction = {'S', 'E', 'N', 'W'};
     private String[] command = {"UP#", "RIGHT#", "DOWN#", "LEFT#"};
 
+    
+    //this method is to auto play(move player to desired location)
     public void move(char[] wavePath, Player player) {
 
         for (i = 0; i < 1000; i++) {
@@ -80,9 +82,11 @@ public class AiMoves {
 
     }
 
+    
+    //this is to shoot when players come across with a brick
     public void fireAtBricks(Player player) {
         if (player.getDirect() == 0) {
-            if (MapDetails.map[player.getPosY() - 1][player.getPosX()].equals("B")) {
+            if (MapDetails.map[player.getPosY() - 1][player.getPosX()].equals("B") || MapDetails.map[player.getPosY() - 1][player.getPosX()].startsWith("P")) {
                 for (int h = 0; h < 4; h++) {
                     c.tankControl("SHOOT#");
                     System.out.println("shoot");
@@ -97,7 +101,7 @@ public class AiMoves {
                 }
             }
         } else if (player.getDirect() == 1) {
-            if (MapDetails.map[player.getPosY()][player.getPosX() + 1].equals("B")) {
+            if (MapDetails.map[player.getPosY()][player.getPosX() + 1].equals("B") || MapDetails.map[player.getPosY()][player.getPosX() + 1].startsWith("P")) {
                 for (int h = 0; h < 4; h++) {
                     c.tankControl("SHOOT#");
                     //System.out.println(command[j]);
@@ -112,7 +116,7 @@ public class AiMoves {
                 }
             }
         } else if (player.getDirect() == 2) {
-            if (MapDetails.map[player.getPosY() + 1][player.getPosX()].equals("B")) {
+            if (MapDetails.map[player.getPosY() + 1][player.getPosX()].equals("B") || MapDetails.map[player.getPosY() + 1][player.getPosX()].startsWith("P")) {
                 for (int h = 0; h < 4; h++) {
                     c.tankControl("SHOOT#");
                     //System.out.println(command[j]);
@@ -127,7 +131,7 @@ public class AiMoves {
                 }
             }
         } else if (player.getDirect() == 3) {
-            if (MapDetails.map[player.getPosY()][player.getPosX() - 1].equals("B")) {
+            if (MapDetails.map[player.getPosY()][player.getPosX() - 1].equals("B") || MapDetails.map[player.getPosY()][player.getPosX() - 1].startsWith("P")) {
                 for (int h = 0; h < 4; h++) {
                     c.tankControl("SHOOT#");
                     //System.out.println(command[j]);
@@ -144,6 +148,8 @@ public class AiMoves {
         }
     }
 
+    
+    //this is to check and keep out of water when traversing
     public void keepOutOfWater(Player player) {
         if (player.getDirect() == 0) {
             if (MapDetails.map[player.getPosY() - 1][player.getPosX()].equals("W")) {
@@ -259,4 +265,6 @@ public class AiMoves {
             }
         }
     }
+    
+    
 }

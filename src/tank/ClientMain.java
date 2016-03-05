@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import map.KeyCtrl;
 
 import map.MapDetails;
+import map.Player;
 
 public class ClientMain extends Thread{
     ServerSocket serverSocket;
@@ -23,6 +24,9 @@ public class ClientMain extends Thread{
         serverSocket=new ServerSocket(7000);
         this.c=client;
     }
+    
+   
+     public static String pDetail;
     @Override
     public void run(){
         //c.con();
@@ -55,7 +59,24 @@ public class ClientMain extends Thread{
                     MapDetails.updateCoinPiles(s);
                 }
                  else if(s.charAt(0)=='S'){
-                     
+                     pDetail=s.substring(2,4);
+//                     String k=s.substring(2,s.length()-1);
+//                     //public Player[] p={pl};
+//                     System.out.println(pDetail);
+//                     switch(pDetail){
+//                         case "p1":myPlayer=MapDetails.player1;
+//                             break;
+//                         case "p2":myPlayer=MapDetails.player2;
+//                             break;
+//                         case "p3":myPlayer=MapDetails.player3;
+//                             break;
+//                         case "p4":myPlayer=MapDetails.player4;
+//                             break;
+//                         case "p5":myPlayer=MapDetails.player5;
+//                             break;
+//                     }
+                     //System.out.println(k);
+                      //MapDetails.playerUpdateStatus(k);
                  }
                 
                  else{

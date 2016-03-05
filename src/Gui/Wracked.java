@@ -14,7 +14,7 @@ public class Wracked extends javax.swing.JFrame {
      * Creates new form Wracked
      */
     public Wracked() {
-        this.setUndecorated(true);
+        //this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);

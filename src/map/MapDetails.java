@@ -8,6 +8,7 @@ package map;
 import Gui.MapMain;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import tank.ClientMain;
 
 /**
  *
@@ -128,7 +129,10 @@ public class MapDetails {
 
     }
 
-    private static void playerUpdateStatus(String P) {
+    
+    public static int myPlayer=0;
+    public static void playerUpdateStatus(String P) {
+         
         ArrayList<String> tokens = new ArrayList<String>();
         StringTokenizer player = new StringTokenizer(P, ";");
         while (player.hasMoreTokens()) {
@@ -180,6 +184,9 @@ public class MapDetails {
             P0 = tokens;
             //long st= System.currentTimeMillis();
             MapMain.updatePlayerLocation(player1);
+            if(ClientMain.pDetail.equals("p1")){
+                myPlayer=1;
+            }
             //System.out.println(System.currentTimeMillis()-st+"nnnnnnnnnnnn");
         } else if ("P1".equals(tokens.get(0))) {
             if (player2 == null) {
@@ -197,6 +204,9 @@ public class MapDetails {
             }
             P1 = tokens;
             MapMain.updatePlayerLocation(player2);
+            if(ClientMain.pDetail.equals("p2")){
+                myPlayer=2;
+            }
         } else if ("P2".equals(tokens.get(0))) {
             if (player3 == null) {
                 player3 = new Player(tokens.get(0), x, y, Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)), Integer.parseInt(tokens.get(6)));
@@ -213,6 +223,9 @@ public class MapDetails {
             }
             P2 = tokens;
             MapMain.updatePlayerLocation(player3);
+            if(ClientMain.pDetail.equals("p3")){
+                myPlayer=3;
+            }
         } else if ("P3".equals(tokens.get(0))) {
             if (player4 == null) {
                 player4 = new Player(tokens.get(0), x, y, Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)), Integer.parseInt(tokens.get(6)));
@@ -229,6 +242,9 @@ public class MapDetails {
             }
             P3 = tokens;
             MapMain.updatePlayerLocation(player4);
+            if(ClientMain.pDetail.equals("p4")){
+                myPlayer=4;
+            }
         } else if ("P4".equals(tokens.get(0))) {
             if (player5 == null) {
                 player5 = new Player(tokens.get(0), x, y, Integer.parseInt(tokens.get(2)), Integer.parseInt(tokens.get(3)), Integer.parseInt(tokens.get(4)), Integer.parseInt(tokens.get(5)), Integer.parseInt(tokens.get(6)));
@@ -245,6 +261,9 @@ public class MapDetails {
             }
             P4 = tokens;
             MapMain.updatePlayerLocation(player5);
+            if(ClientMain.pDetail.equals("p5")){
+                myPlayer=5;
+            }
         } else {
         }
         //printMap();

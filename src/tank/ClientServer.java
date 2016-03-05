@@ -10,6 +10,7 @@ public class ClientServer extends Thread{
     private Socket socket;
     private DataOutputStream dos;
     private String ip="127.0.0.1";
+    //private String ip="192.168.1.4";
     private int port=6000;
     
     private boolean connect() {
